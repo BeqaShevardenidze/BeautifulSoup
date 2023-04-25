@@ -22,11 +22,24 @@ soup = BeautifulSoup(response.text, "lxml")
 # f.close()
 
 
-data = soup.find("div", class_="col-lg-4 col-md-6 mb-4")     #soup-ში ეძებს ყველა div elements
+# data = soup.find("div", class_="col-lg-4 col-md-6 mb-4")     #soup-ში ეძებს ყველა div elements
 # f = open("data.txt", "w", encoding="utf-8")
 # f.write(str(data))
 # f.close()
 
 
-name = data.find("h4", class_="card-title").text
-print(name)
+# name = data.find("h4", class_="card-title").text.replace("\n", "")    #პროდუქტის სახელი    ფუნქცია replace -ს პირველი პარამეტრის მნიშვნელობა იცვლება მეორეთი
+# price = data.find("h5").text    #ფასი
+# url_img = "https://scrapingclub.com" + data.find("img", class_="card-img-top img-fluid").get("src")
+
+
+
+data = soup.find_all("div", class_="col-lg-4 col-md-6 mb-4")
+
+for i in data:
+    name = i.find("h4", class_="card-title").text.replace("\n", "")
+    price = i.find("h5").text    #ფასი
+    url_img = "https://scrapingclub.com" + i.find("img", class_="card-img-top img-fluid").get("src")
+
+
+    print(name + "\n" + price + "\n"  + url_img + "\n" )
